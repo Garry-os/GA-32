@@ -61,10 +61,10 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII <br>
 **Format:** POP [reg] <br>
 **Opcode:** 0x05 <br>
 **Description:** Pop a value from the stack into [reg].
-### JMP
-**Format:** JMP [imm] <br>
+### JNZ
+**Format:** JNZ [imm/reg] <br>
 **Opcode:** 0x06 <br>
-**Description:** Jump to an address from [imm] unconditionally.
+**Description:** Jump to the address in register E if [imm/reg] is not zero; otherwise continue execution normally. 
 ### ADD
 **Format:** ADD [reg], [imm/reg] <br>
 **Opcode:** 0x07 <br>
@@ -104,8 +104,9 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII <br>
 ### Reset vector
 On reset vector, the CPU read a 32-bit big-endian address from (MSB to LSB):
 - 0xFFFFFFF0 (MSB) to 0xFFFFFFF3 (LSB)
-Then, the PC will be initialize to the 32-bit value.
-Then the stack will be reset to address 0x00FFFFFF.
+
+Then, the PC will be initialize to the 32-bit value.  
+Then the stack will be reset to address 0x00FFFFFF.  
 ### Invalid instruction
 If the CPU encounter an invalid instruction during execution, it stops execution completely.
 
