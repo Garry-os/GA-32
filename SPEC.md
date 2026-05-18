@@ -24,8 +24,9 @@ Z register (MSB to LSB):
 - NEGATIVE
 - OVERFLOW
 
-**NOTE:** The Z register isn't directly accessible by the software or program by using regular instructions like `MOVE`. <br>
-Instead, they're accessed indirectly (See section **Instructions** for more details).
+**NOTE:** The Z and PC register isn't directly accessible by the software or program by using regular instructions like `MOVE`. <br>
+Instead, they're accessed indirectly (See section **Instructions** for more details).  
+And the **stack** grows **downward**.
 
 ## Instructions
 **Instruction format (2 argument):** `[OP] [destination], [source]` <br>
@@ -64,11 +65,11 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII <br>
 ### JNZ
 **Format:** JNZ [imm/reg] <br>
 **Opcode:** 0x06 <br>
-**Description:** Jump to the address in register E if [imm/reg] is not zero; otherwise continue execution normally. 
+**Description:** Jump (by setting PC) to the address in register E if [imm/reg] is not zero; otherwise continue execution normally. 
 ### ADD
 **Format:** ADD [reg], [imm/reg] <br>
 **Opcode:** 0x07 <br>
-**Description:** Add [imm/reg] to [reg] ([reg] + [imm/reg]).
+**Description:** Add [imm/reg] to [reg] ([reg] + [imm/reg]).  
 **Flags affected:**
 - ZERO: Set if the 32-bit result is exactly 0; otherwise cleared.
 - CARRY: Set if the operation exceed unsigned 32-bit limit; otherwise cleared.
@@ -77,7 +78,7 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII <br>
 ### SUB
 **Format:** SUB [reg], [imm/reg] <br>
 **Opcode:** 0x08 <br>
-**Description:** Subtract [imm/reg] from [reg] ([reg] - [imm/reg]).
+**Description:** Subtract [imm/reg] from [reg] ([reg] - [imm/reg]).  
 **Flags affected:**
 - ZERO: Set if the 32-bit result is exactly 0; otherwise cleared.
 - CARRY: Set if the operation underflow unsigned 32-bit limit; otherwise cleared.
@@ -99,6 +100,10 @@ XXXXXXXXYYYYZZZZIIIIIIIIIIIIIIII <br>
 **Format:** NOP <br>
 **Opcode:** 0x0C <br>
 **Description:** Performs no operation (1 CPU cycle).
+### MOVU
+**Format:** MOVU [reg], [imm]  
+**Opcode:** 0x0D  
+**Description:** Set [reg] upper 16-bit to [imm].
 
 ## Behaviors
 ### Reset vector

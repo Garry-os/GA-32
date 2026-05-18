@@ -24,5 +24,6 @@
 #define OP_RET   0x0A
 #define OP_HLT   0x0B
 #define OP_NOP   0x0C
+#define OP_MOVU  0x0D
 
 

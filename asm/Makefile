@@ -19,5 +19,5 @@ $(BUILD_DIR)/asm/asm: $(CPP_OBJECTS)
 
 $(BUILD_DIR)/asm/%.o: %.cpp $(CPP_HEADERS)
 	@ mkdir -p $(dir $@)
-	$(CXX) -c -o $@ $<
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
