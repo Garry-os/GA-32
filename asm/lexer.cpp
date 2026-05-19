@@ -6,8 +6,10 @@
 bool convStrToNum(const std::string& str, int32_t& out)
 {
 	auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), out);
+	(void)ptr;
 
-	if (ec == std::errc::result_out_of_range)
+	// Check 16-bit range
+	if (out < 0 || out > 65535)
 	{
 		return false;
 	}
@@ -63,6 +65,11 @@ std::vector<Token> tokenize(const std::string& src)
 
 			tokens.push_back({ TK::NUMBER, str, num });
 			buffer.clear();
+		}
+		else if (c == ',')
+		{
+			tokens.push_back({ TK::COMMA, std::string(","), 0 });
+			i++;
 		}
 		else if (std::isspace(c))
 		{

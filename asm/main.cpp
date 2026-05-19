@@ -3,7 +3,7 @@
 
 int main()
 {
-	std::string str = "Hello World 123 dfsd";
+	std::string str = "MOV A, 123";
 	std::vector<Token> list = tokenize(str);
 
 	for (auto& token : list)
