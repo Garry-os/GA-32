@@ -1,10 +1,19 @@
 #include "lexer.h"
+#include "file.h"
 #include <print>
 
-int main()
+int main(int argc, char** argv)
 {
-	std::string str = "MOV A, 123";
-	std::vector<Token> list = tokenize(str);
+	if (argc < 2)
+	{
+		std::print("Syntax: ./asm <file>\n");
+		return -1;
+	}
+
+	char* filePath = argv[1];
+	std::string content = readFile(filePath);
+
+	std::vector<Token> list = tokenize(content, filePath);
 
 	for (auto& token : list)
 	{

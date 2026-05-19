@@ -17,12 +17,14 @@ bool convStrToNum(const std::string& str, int32_t& out)
 	return true;
 }
 
-std::vector<Token> tokenize(const std::string& src)
+std::vector<Token> tokenize(const std::string& src, const std::string& fileName)
 {
 	std::vector<Token> tokens;
 	std::vector<char> buffer;
 
 	size_t i = 0;
+	int lineCounter = 0;
+	int lineIndex = 0;
 	while (i < src.length())
 	{
 		char c = src[i];
@@ -41,7 +43,7 @@ std::vector<Token> tokenize(const std::string& src)
 			}
 
 			// Push into token list
-			tokens.push_back({ TK::INSTRUCTION, std::string(buffer.begin(), buffer.end()), 0 });
+			tokens.push_back({ TK::INSTRUCTION, std::string(buffer.begin(), buffer.end()), 0, lineCounter, lineIndex, fileName });
 			buffer.clear();
 		}
 		else if (std::isdigit(c))
@@ -63,13 +65,20 @@ std::vector<Token> tokenize(const std::string& src)
 			int32_t num;
 			convStrToNum(str, num);
 
-			tokens.push_back({ TK::NUMBER, str, num });
+			tokens.push_back({ TK::NUMBER, str, num, lineCounter, lineIndex, fileName });
 			buffer.clear();
 		}
 		else if (c == ',')
 		{
-			tokens.push_back({ TK::COMMA, std::string(","), 0 });
+			tokens.push_back({ TK::COMMA, std::string(","), 0, lineCounter, lineIndex, fileName });
 			i++;
+		}
+		else if (c == '\n')
+		{
+			lineCounter++;
+			lineIndex = 0;
+			i++;
+			continue;
 		}
 		else if (std::isspace(c))
 		{
@@ -78,9 +87,11 @@ std::vector<Token> tokenize(const std::string& src)
 		}
 		else
 		{
-			asm_err("Invalid token", "fsdf", 0);
+			asm_err("Invalid token", fileName, lineCounter, lineIndex);
 			break;
 		}
+
+		lineIndex++;
 	}
 
 	return tokens;
