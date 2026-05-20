@@ -1,3 +1,4 @@
+#include "asm.h"
 #include "lexer.h"
 #include "file.h"
 #include <print>
@@ -13,9 +14,10 @@ int main(int argc, char** argv)
 	char* filePath = argv[1];
 	std::string content = readFile(filePath);
 
-	std::vector<Token> list = tokenize(content, filePath);
+	asmContext context;
+	context.tokens = tokenize(content, filePath);
 
-	for (auto& token : list)
+	for (auto& token : context.tokens)
 	{
 		std::print("Token: content: {}, num: {}\n", token.content, token.number);
 	}
