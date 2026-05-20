@@ -1,5 +1,5 @@
 CXX = g++
-CFLAGS = -Wall -Wextra -O2 -std=c++23
+CFLAGS = -Wall -Wextra -O2 -std=c++23 -I ../common
 
 LD = g++
 

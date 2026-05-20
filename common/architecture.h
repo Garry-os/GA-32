@@ -17,7 +17,7 @@
 #define OP_STORE 0x03
 #define OP_PUSH  0x04
 #define OP_POP   0x05
-#define OP_JMP   0x06
+#define OP_JNZ   0x06
 #define OP_ADD   0x07
 #define OP_SUB   0x08
 #define OP_CALL  0x09
