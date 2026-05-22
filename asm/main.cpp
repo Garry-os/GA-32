@@ -20,10 +20,7 @@ int main(int argc, char** argv)
 
 	parse(context);
 
-	for (size_t i = 0; i < context.buffer.size(); i++)
-	{
-		std::print("{:X} ", context.buffer.at(i));
-	}
+	writeFile("a.out", context.buffer);
 
 	return 0;
 }

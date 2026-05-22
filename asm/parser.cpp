@@ -137,8 +137,6 @@ void parse(asmContext& context)
 		}
 
 		// Emit the instruction to the buffer
-		std::print("Successfully Parsed Opcode: {}, Dst: {}, Src: {}, Imm: {}\n", 
-            op.opcode, dstReg, srcReg, imm);
 		PUSH8(buffer, ((srcReg << 4) | dstReg)); // Registers
 		PUSH16(buffer, imm); // Immediate register
 
