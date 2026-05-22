@@ -20,6 +20,7 @@ struct Token
 	int lineNumber;
 	int lineIndex;
 	std::string fileName;
+	int index; // Token index in the token list
 };
 
 std::vector<Token> tokenize(const std::string& src, const std::string& fileName);

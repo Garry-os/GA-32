@@ -1,6 +1,7 @@
 #include "asm.h"
 #include "lexer.h"
 #include "file.h"
+#include "parser.h"
 #include <print>
 
 int main(int argc, char** argv)
@@ -17,9 +18,11 @@ int main(int argc, char** argv)
 	asmContext context;
 	context.tokens = tokenize(content, filePath);
 
-	for (auto& token : context.tokens)
+	parse(context);
+
+	for (size_t i = 0; i < context.buffer.size(); i++)
 	{
-		std::print("Token: content: {}, num: {}\n", token.content, token.number);
+		std::print("{:X} ", context.buffer.at(i));
 	}
 
 	return 0;

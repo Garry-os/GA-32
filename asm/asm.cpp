@@ -2,7 +2,7 @@
 #include <print>
 #include <architecture.h>
 
-Op opTables[] = {
+Op opTables[20] = {
 	{
 		"MOV",
 		2,

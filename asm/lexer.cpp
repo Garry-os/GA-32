@@ -3,6 +3,7 @@
 #include "asm.h"
 #include <charconv>
 
+
 bool convStrToNum(const std::string& str, int32_t& out)
 {
 	auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), out);
@@ -43,7 +44,7 @@ std::vector<Token> tokenize(const std::string& src, const std::string& fileName)
 			}
 
 			// Push into token list
-			tokens.push_back({ TK::INSTRUCTION, std::string(buffer.begin(), buffer.end()), 0, lineCounter, lineIndex, fileName });
+			tokens.push_back({ TK::INSTRUCTION, std::string(buffer.begin(), buffer.end()), 0, lineCounter, lineIndex, fileName, CAST_INT(tokens.size()) });
 			buffer.clear();
 		}
 		else if (std::isdigit(c))
@@ -65,12 +66,12 @@ std::vector<Token> tokenize(const std::string& src, const std::string& fileName)
 			int32_t num;
 			convStrToNum(str, num);
 
-			tokens.push_back({ TK::NUMBER, str, num, lineCounter, lineIndex, fileName });
+			tokens.push_back({ TK::NUMBER, str, num, lineCounter, lineIndex, fileName, CAST_INT(tokens.size()) });
 			buffer.clear();
 		}
 		else if (c == ',')
 		{
-			tokens.push_back({ TK::COMMA, std::string(","), 0, lineCounter, lineIndex, fileName });
+			tokens.push_back({ TK::COMMA, std::string(","), 0, lineCounter, lineIndex, fileName, CAST_INT(tokens.size()) });
 			i++;
 		}
 		else if (c == '\n')
